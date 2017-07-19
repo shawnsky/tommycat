@@ -27,7 +27,7 @@ public class Connector implements Runnable{
             try {
                 socket = serverSocket.accept();
                 Processor processor = new Processor(socket);
-                processor.processStatic();
+                processor.process();
                 socket.close();
 
             } catch (IOException e) {

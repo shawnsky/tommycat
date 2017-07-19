@@ -2,54 +2,101 @@
  * Created by Administrator on 2017/7/18.
  */
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletResponse;
 import java.io.*;
+import java.util.Locale;
 
 /**
  * 07-18 16:35
  * 响应类
  * @author xt
  **/
-public class Response {
+public class Response implements ServletResponse{
 
     private OutputStream out;
-
-    private Request request;
 
     public Response(OutputStream out){
         this.out = out;
     }
 
-    public void setRequest(Request request){
-        this.request = request;
+    @Override
+    public String getCharacterEncoding() {
+        return null;
     }
 
-    public void sendStaticResponse() throws IOException {
-        PrintWriter writer = new PrintWriter(out,true);
-
-        File file = new File(Configuration.WEB_ROOT, request.getUri());
-        if(file.exists()){
-            FileReader reader = new FileReader(file);
-            char[] buf = new char[2046];
-            StringBuffer sb = new StringBuffer();
-            if (reader.read(buf)>0){
-                sb.append(buf);
-            }
-            reader.close();
-
-            writer.println("HTTP/1.1 200 OK");
-            writer.println("Content-Type: text/html; charset=UTF-8");
-            writer.println();
-            writer.println(sb.toString());
-
-        } else {
-            String error = "HTTP/1.1 404 File Not Found\r\n" +
-                    "Content-Type: text/html\r\n" +
-                    "Content-Length: 23\r\n" +
-                    "\r\n" +
-                    "<h1>File Not Found</h1>";
-            writer.println(error);
-        }
-        out.close();
+    @Override
+    public String getContentType() {
+        return null;
     }
 
+    @Override
+    public ServletOutputStream getOutputStream() throws IOException {
+        return null;
+    }
+
+    @Override
+    public PrintWriter getWriter() throws IOException {
+        return new PrintWriter(out);
+    }
+
+    @Override
+    public void setCharacterEncoding(String s) {
+
+    }
+
+    @Override
+    public void setContentLength(int i) {
+
+    }
+
+    @Override
+    public void setContentLengthLong(long l) {
+
+    }
+
+    @Override
+    public void setContentType(String s) {
+
+    }
+
+    @Override
+    public void setBufferSize(int i) {
+
+    }
+
+    @Override
+    public int getBufferSize() {
+        return 0;
+    }
+
+    @Override
+    public void flushBuffer() throws IOException {
+
+    }
+
+    @Override
+    public void resetBuffer() {
+
+    }
+
+    @Override
+    public boolean isCommitted() {
+        return false;
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
+    @Override
+    public void setLocale(Locale locale) {
+
+    }
+
+    @Override
+    public Locale getLocale() {
+        return null;
+    }
 }
